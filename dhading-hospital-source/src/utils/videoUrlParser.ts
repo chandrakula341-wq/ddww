@@ -11,25 +11,45 @@ export function parseVideoUrl(url: string): ParsedVideoSource {
   // YouTube
   const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
   if (ytMatch) {
-    return { platform: 'youtube', videoId: ytMatch[1], embedUrl: `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&mute=1&loop=1&playlist=${ytMatch[1]}` };
+    // YouTube embed with continuous looping - playlist parameter makes it loop
+    return { 
+      platform: 'youtube', 
+      videoId: ytMatch[1], 
+      embedUrl: `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&mute=1&loop=1&controls=0&playlist=${ytMatch[1]}&modestbranding=1` 
+    };
   }
 
   // Vimeo
   const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
   if (vimeoMatch) {
-    return { platform: 'vimeo', videoId: vimeoMatch[1], embedUrl: `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1&muted=1&loop=1` };
+    // Vimeo embed with continuous looping
+    return { 
+      platform: 'vimeo', 
+      videoId: vimeoMatch[1], 
+      embedUrl: `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1&muted=1&loop=1&controls=0` 
+    };
   }
 
   // TikTok
   const tiktokMatch = url.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/);
   if (tiktokMatch) {
-    return { platform: 'tiktok', videoId: tiktokMatch[1], embedUrl: `https://www.tiktok.com/embed/v2/${tiktokMatch[1]}` };
+    // TikTok embed (note: TikTok embeds have limited loop control)
+    return { 
+      platform: 'tiktok', 
+      videoId: tiktokMatch[1], 
+      embedUrl: `https://www.tiktok.com/embed/v2/${tiktokMatch[1]}` 
+    };
   }
 
   // Streamable
   const streamableMatch = url.match(/streamable\.com\/([a-zA-Z0-9]+)/);
   if (streamableMatch) {
-    return { platform: 'streamable', videoId: streamableMatch[1], embedUrl: `https://streamable.com/e/${streamableMatch[1]}?autoplay=1&muted=1` };
+    // Streamable embed with continuous looping and no controls
+    return { 
+      platform: 'streamable', 
+      videoId: streamableMatch[1], 
+      embedUrl: `https://streamable.com/e/${streamableMatch[1]}?autoplay=1&muted=1&loop=1&nocontrols=1` 
+    };
   }
 
   // Direct video file
@@ -48,14 +68,17 @@ export function getVideoEmbedCode(url: string): VideoEmbedCode | null {
   const parsed = parseVideoUrl(url);
   if (!parsed.embedUrl) return null;
 
-  const iframeHtml = `<iframe
-    src="${parsed.embedUrl}"
-    frameborder="0"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowfullscreen
-    style="width:100%;height:100%;position:absolute;top:0;left:0;"
-    title="Banner video"
-  ></iframe>`;
+  // Wrap iframe in a container for proper looping behavior
+  const iframeHtml = `<div style="position:relative;width:100%;height:100%;overflow:hidden;">
+    <iframe
+      src="${parsed.embedUrl}"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+      style="width:100%;height:100%;position:absolute;top:0;left:0;border:none;"
+      title="Banner video"
+    ></iframe>
+  </div>`;
 
   return { html: iframeHtml };
 }
