@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Activity } from 'lucide-react';
 import { WebBanner } from '../types';
 import { parseVideoUrl, getVideoEmbedCode } from '../utils/videoUrlParser';
@@ -9,14 +9,25 @@ interface BannerSliderProps {
 
 export default function BannerSlider({ banners }: BannerSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Auto-advance to next banner after 8 seconds (only for image banners, videos loop)
   useEffect(() => {
-    if (!banners || banners.length <= 1) return;
+    const currentBanner = banners?.[currentIndex];
+    if (!banners || banners.length <= 1 || !currentBanner) return;
+    
+    // If current banner has a video, don't auto-advance (video will loop)
+    if (currentBanner.videoUrl) {
+      return;
+    }
+    
+    // For image-only banners, auto-advance after 6 seconds
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % banners.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [banners]);
+  }, [banners, currentIndex]);
 
   const handlePrev = () => {
     if (!banners || banners.length === 0) return;
@@ -57,11 +68,19 @@ export default function BannerSlider({ banners }: BannerSliderProps) {
             if (videoSource.platform === 'direct') {
               return (
                 <video
+                  ref={videoRef}
                   src={videoSource.directUrl}
                   autoPlay
                   loop
                   muted
                   playsInline
+                  onEnded={() => {
+                    console.log("[v0] Direct video ended, restarting...");
+                    if (videoRef.current) {
+                      videoRef.current.currentTime = 0;
+                      videoRef.current.play();
+                    }
+                  }}
                   className="w-full h-full object-cover object-center"
                 />
               );
