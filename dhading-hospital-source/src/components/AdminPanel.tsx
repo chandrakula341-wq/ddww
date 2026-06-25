@@ -10,6 +10,7 @@ import {
 } from '../types';
 import { DEFAULT_DETAILED_PRICE_LIST } from '../defaultPriceList';
 import { clearPriceList } from '../lib/firestoreUtils';
+import QuickBannerForm from './QuickBannerForm';
 
 interface AdminPanelProps {
   categories: string[];
@@ -163,6 +164,7 @@ export default function AdminPanel({
 
   // Banner list helper
   const [bannerForm, setBannerForm] = useState({ imageUrl: '', videoUrl: '', title: '', subtitle: '' });
+  const [showBannerModal, setShowBannerModal] = useState(false);
 
   // Testimonials and Events helper states
   const [testiForm, setTestiForm] = useState<Partial<TestimonialItem>>({ id: '', name: '', address: '', comment: '' });
@@ -3779,6 +3781,18 @@ export default function AdminPanel({
         )}
       </main>
 
+      {/* Quick Banner Video Form Modal */}
+      <QuickBannerForm
+        isOpen={showBannerModal}
+        onClose={() => setShowBannerModal(false)}
+        onAdd={(banner) => {
+          setSettings(prev => ({
+            ...prev,
+            banners: [...(prev.banners || []), banner]
+          }));
+          setSaveStatus({ text: 'Banner added! Click "Save to Firebase" to save.', isError: false });
+        }}
+      />
     </div>
   );
 }
