@@ -171,37 +171,58 @@ export default function App() {
   // Load data from Firebase on mount and subscribe to real-time updates
   useEffect(() => {
     let unsubscribe: (() => void) | null = null;
+    let timeoutId: any = null;
+    let isMounted = true;
     
     const initializeData = async () => {
       try {
+        console.log("[v0] Starting Firebase initialization...");
         // First load data
         const data = await loadDataFromFirestore();
-        updateStateFromData(data);
+        console.log("[v0] Data loaded from Firebase:", data ? 'success' : 'no data');
+        if (isMounted) {
+          updateStateFromData(data);
+        }
         
         // Then subscribe to real-time updates
         unsubscribe = subscribeToFirestore((newData) => {
           console.log("[v0] Real-time update received from Firebase");
-          updateStateFromData(newData);
+          if (isMounted) {
+            updateStateFromData(newData);
+          }
         });
       } catch (error) {
         console.error("[v0] Error initializing Firebase:", error);
       } finally {
-        setIsLoading(false);
-        
-        // Initialize SEO after page loads
-        setTimeout(() => {
-          addHealthcareSchema();
-          optimizePagePerformance();
-          updatePageSEO('home');
-          trackPageView('home');
-        }, 100);
+        if (isMounted) {
+          console.log("[v0] Setting loading to false");
+          setIsLoading(false);
+          
+          // Initialize SEO after page loads
+          setTimeout(() => {
+            addHealthcareSchema();
+            optimizePagePerformance();
+            updatePageSEO('home');
+            trackPageView('home');
+          }, 100);
+        }
       }
     };
+    
+    // Set a safety timeout in case Firebase never responds (5 seconds)
+    timeoutId = setTimeout(() => {
+      if (isMounted) {
+        console.warn("[v0] Firebase initialization timeout - forcing load");
+        setIsLoading(false);
+      }
+    }, 5000);
     
     initializeData();
     
     // Cleanup subscription on unmount
     return () => {
+      isMounted = false;
+      if (timeoutId) clearTimeout(timeoutId);
       if (unsubscribe) {
         unsubscribe();
       }
@@ -567,6 +588,20 @@ export default function App() {
         setMailboxes={setMailboxes}
         onExit={() => setIsAdminView(false)}
       />
+    );
+  }
+
+  // Debug: Show visible loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 font-sans text-gray-800 flex flex-col items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#00A64C] mx-auto"></div>
+          <h1 className="text-2xl font-bold text-[#006830]">Dhading Hospital</h1>
+          <p className="text-gray-600">Loading hospital data...</p>
+          <p className="text-xs text-gray-400">[v0] Initializing Firebase connection</p>
+        </div>
+      </div>
     );
   }
 
