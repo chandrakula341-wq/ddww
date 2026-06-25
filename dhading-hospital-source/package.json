@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node zip.js",
+    "build": "vite build",
     "start": "vite preview",
     "lint": "tsc --noEmit"
   },
