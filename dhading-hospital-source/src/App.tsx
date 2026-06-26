@@ -82,8 +82,8 @@ export default function App() {
           bio: 'Senior consultant with over 20 years of clinical experience in hospital management and internal medicine.',
           photoUrl: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&q=80',
           email: 'medicaldirector@dhadinghospital.com.np',
-          phone: '+977-9851012345',
-          whatsapp: '9851012345'
+          phone: '+977-9851051956',
+          whatsapp: '9851051956'
         };
       }
       if (!baseAbout.accountManager) {
@@ -2396,7 +2396,7 @@ export default function App() {
                   }
 
                   const selectedDocObj = doctors.find(dr => dr.name === meetDocName);
-                  const rawNo = (selectedDocObj?.number || '9851012345').replace(/\D/g, '');
+                  const rawNo = (selectedDocObj?.number || '9851051956').replace(/\D/g, '');
                   const finalDoctorPhone = rawNo.startsWith('977') ? rawNo : `977${rawNo}`;
 
                   const bookingText = `प्रणाम डाक्टर साप, म तपाईंको ओपिडी सेवाको लागि अनलाइन बुकि��� गर्दैछु।
