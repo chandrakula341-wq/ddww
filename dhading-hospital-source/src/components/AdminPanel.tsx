@@ -186,7 +186,7 @@ export default function AdminPanel({
     e.preventDefault();
     if (!serviceItemForm.title) return;
 
-    const targetList = services[selectedServiceCategory];
+    const targetList = services[selectedServiceCategory] || [];
     if (isEditingService) {
       const updatedList = targetList.map(item => 
         item.id === isEditingService ? { ...item, ...serviceItemForm } : item
@@ -201,14 +201,14 @@ export default function AdminPanel({
         pdfUrl: serviceItemForm.pdfUrl,
         text: serviceItemForm.text
       };
-      setServices(prev => ({ ...prev, [selectedServiceCategory]: [...targetList, newItem] }));
+      setServices(prev => ({ ...prev, [selectedServiceCategory]: [...(targetList || []), newItem] }));
     }
 
     setServiceItemForm({ id: '', title: '', imageUrl: '', pdfUrl: '', text: '' });
   };
 
   const handleDeleteServiceItem = (category: keyof Services, itemId: string) => {
-    const list = services[category];
+    const list = services[category] || [];
     const filtered = list.filter(it => it.id !== itemId);
     setServices(prev => ({ ...prev, [category]: filtered }));
   };
@@ -1100,7 +1100,7 @@ export default function AdminPanel({
 
               {/* Service Categories selectors */}
               <div className="flex flex-wrap gap-2 pb-6 border-b border-gray-100">
-                {(['opd', 'ipd', 'emergency', 'labPathology', 'radiology', 'cashReception', 'pharmacy', 'ambulance', 'preventiveHealth'] as (keyof Services)[]).map((cat) => (
+                {(['opd', 'emergency', 'labPathology', 'cashReception', 'pharmacy', 'ambulance', 'preventiveHealth'] as (keyof Services)[]).map((cat) => (
                   <button
                     key={cat}
                     onClick={() => {

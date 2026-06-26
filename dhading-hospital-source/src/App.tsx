@@ -1332,10 +1332,8 @@ export default function App() {
                 >
                   {[
                     { id: 'opd', label: 'OPD Services' },
-                    { id: 'ipd', label: 'IPD Services' },
                     { id: 'emergency', label: 'Emergency Care 24/7' },
                     { id: 'labPathology', label: 'Lab & Pathology' },
-                    { id: 'radiology', label: 'Radiology Services' },
                     { id: 'cashReception', label: 'Cash & Reception Desk' },
                     { id: 'pharmacy', label: 'In-Hospital Pharmacy' },
                     { id: 'ambulance', label: 'Ambulance Services' },
@@ -1355,10 +1353,8 @@ export default function App() {
               <div className="flex gap-2 overflow-x-auto pb-3 pt-1 -mx-4 px-4 scrollbar-none scroll-smooth">
                 {[
                   { id: 'opd', label: 'OPD Services' },
-                  { id: 'ipd', label: 'IPD Services' },
                   { id: 'emergency', label: 'Emergency 24/7' },
                   { id: 'labPathology', label: 'Lab & Pathology' },
-                  { id: 'radiology', label: 'Radiology' },
                   { id: 'cashReception', label: 'Cash/Billing' },
                   { id: 'pharmacy', label: 'In-Hospital Pharmacy' },
                   { id: 'ambulance', label: 'Ambulance Unit' },
@@ -1388,10 +1384,8 @@ export default function App() {
               <h3 className="text-[#006830] font-black text-base uppercase tracking-wider pl-3 py-3 border-b border-[#00A64C]/20">Category Sections</h3>
               {[
                 { id: 'opd', label: 'OPD Services' },
-                { id: 'ipd', label: 'IPD Services' },
                 { id: 'emergency', label: 'Emergency Care 24/7' },
                 { id: 'labPathology', label: 'Lab & Pathology' },
-                { id: 'radiology', label: 'Radiology Services' },
                 { id: 'cashReception', label: 'Cash & Reception Desk' },
                 { id: 'pharmacy', label: 'In-Hospital Pharmacy' },
                 { id: 'ambulance', label: 'Ambulance Services' },
