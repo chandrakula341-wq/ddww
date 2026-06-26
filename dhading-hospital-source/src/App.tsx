@@ -862,12 +862,9 @@ export default function App() {
                     />
                     <div>
                       <h4 className="font-extrabold text-sm leading-tight">{aboutUs.chairmanMessage.name}</h4>
-                      <p className="text-[10px] uppercase font-black text-white/75 tracking-wider mt-0.5">Chairman / Exec Board</p>
+                      <p className="text-[10px] uppercase font-black text-white/75 tracking-wider mt-0.5">Chairman</p>
                     </div>
                   </div>
-                  <p className="text-white/95 text-xs sm:text-[13px] leading-relaxed italic line-clamp-5">
-                    "{aboutUs.chairmanMessage.details}"
-                  </p>
                 </div>
 
                 <div className="pt-4 grid grid-cols-1 gap-2" onClick={e => e.stopPropagation()}>
@@ -2399,7 +2396,7 @@ export default function App() {
                   const rawNo = (selectedDocObj?.number || '9851051956').replace(/\D/g, '');
                   const finalDoctorPhone = rawNo.startsWith('977') ? rawNo : `977${rawNo}`;
 
-                  const bookingText = `प्रणाम डाक्टर साप, म तपाईंको ओपिडी सेवाको लागि अनलाइन बुकि��� गर्दैछु।
+                  const bookingText = `प्रणाम डाक्टर साप, म तपाईंको ओपिडी सेवाको लागि अनलाइन बुकि����� गर्दैछु।
                   
 📋 मेरो विवरण निम्नलिखित छ:
 ----------------------------------
