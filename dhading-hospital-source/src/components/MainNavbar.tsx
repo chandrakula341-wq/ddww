@@ -188,14 +188,15 @@ export default function MainNavbar({
             className="flex items-center gap-3 cursor-pointer select-none group shrink-0"
           >
             {/* Horizontal Widescreen Logo Image or Custom Leaf-Cross Graphic Box */}
-            {settings.logoUrl ? (
+            {(settings.logoUrl || "/dhading-hospital-logo.png") ? (
               <div className="h-12 sm:h-16 flex items-center transition-transform duration-200">
                 <img 
-                  src={settings.logoUrl} 
+                  src={settings.logoUrl || "/dhading-hospital-logo.png"} 
                   alt={settings.webName || "Hospital Logo"} 
                   referrerPolicy="no-referrer"
                   className="h-full w-auto max-w-[220px] sm:max-w-[320px] object-contain object-left animate-fade-in"
                   style={{ mixBlendMode: 'multiply' }}
+                  onError={(e) => { e.currentTarget.src = "/dhading-hospital-logo.png"; }}
                 />
               </div>
             ) : (
