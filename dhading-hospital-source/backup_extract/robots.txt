@@ -1,0 +1,33 @@
+# Robots.txt for Dhading Hospital
+# Allow search engines to crawl all pages
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /src/
+Allow: /components/
+
+# Disallow admin and sensitive paths
+Disallow: /admin
+Disallow: /private
+Disallow: /*.json$
+
+# Crawl-delay to prevent server overload
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://dhadinghospital.com.np/sitemap.xml
+Sitemap: https://dhadinghospital.com.np/sitemap-mobile.xml
+
+# Specific search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
