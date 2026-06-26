@@ -19,7 +19,7 @@ async function updateLogo() {
     // Update settings with new logo URL
     const settingsRef = ref(db, "settings");
     await set(settingsRef, {
-      logoUrl: "https://dhading-hospital.vercel.app/dhading-hospital-logo.png",
+      logoUrl: `/dhading-hospital-logo.png?v=${Date.now()}`,
       hospitalName: "Dhading Hospital PVT. LTD",
       hospitalPhone: "01840814",
       hospitalEmail: "info@dhadinghospital.com.np",
