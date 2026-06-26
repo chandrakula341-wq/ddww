@@ -2399,7 +2399,7 @@ export default function App() {
                   const rawNo = (selectedDocObj?.number || '9851012345').replace(/\D/g, '');
                   const finalDoctorPhone = rawNo.startsWith('977') ? rawNo : `977${rawNo}`;
 
-                  const bookingText = `प्रणाम डाक्टर साप, म तपाईंको ओपिडी सेवाको लागि अनलाइन बुकिङ गर्दैछु।
+                  const bookingText = `प्रणाम डाक्टर साप, म तपाईंको ओपिडी सेवाको लागि अनलाइन बुकि��� गर्दैछु।
                   
 📋 मेरो विवरण निम्नलिखित छ:
 ----------------------------------
@@ -2711,9 +2711,11 @@ export default function App() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {visitorData.visitHour.map((vh) => (
-                  <div key={vh.id} className="border rounded-2xl overflow-hidden shadow-md">
-                    <img src={vh.imageUrl} alt="guides" className="w-full h-56 object-cover" />
-                    <p className="p-4 text-sm sm:text-base font-extrabold text-slate-800 bg-slate-50 text-center">{vh.title}</p>
+                  <div key={vh.id} className="border rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                    <div className="w-full h-64 bg-gray-100 overflow-hidden flex items-center justify-center">
+                      <img src={vh.imageUrl} alt="guides" className="w-full h-full object-contain" />
+                    </div>
+                    <p className="p-4 text-sm sm:text-base font-extrabold text-slate-800 bg-slate-50 text-center flex-shrink-0">{vh.title}</p>
                   </div>
                 ))}
               </div>
@@ -2729,9 +2731,11 @@ export default function App() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {visitorData.dosAndDonts.map((dd) => (
-                  <div key={dd.id} className="border rounded-2xl overflow-hidden bg-slate-50 shadow-md">
-                    <img src={dd.imageUrl} alt={dd.title} className="w-full h-48 object-cover" />
-                    <div className="p-5 space-y-3 text-center">
+                  <div key={dd.id} className="border rounded-2xl overflow-hidden bg-white shadow-md flex flex-col">
+                    <div className="w-full h-56 bg-gray-100 overflow-hidden flex items-center justify-center flex-shrink-0">
+                      <img src={dd.imageUrl} alt={dd.title} className="w-full h-full object-contain" />
+                    </div>
+                    <div className="p-5 space-y-3 text-center flex-1 flex flex-col justify-between">
                       <h4 className="font-extrabold text-base sm:text-lg text-gray-900 leading-snug">{dd.title}</h4>
                       {dd.pdfUrl && (
                         <button
@@ -2761,9 +2765,11 @@ export default function App() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {visitorData.parking.map((pk) => (
-                  <div key={pk.id} className="border rounded-2xl overflow-hidden shadow-md">
-                    <img src={pk.imageUrl} alt="guides" className="w-full h-56 object-cover" />
-                    <p className="p-4 text-sm sm:text-base font-extrabold text-slate-800 bg-slate-50 text-center">{pk.title}</p>
+                  <div key={pk.id} className="border rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                    <div className="w-full h-64 bg-gray-100 overflow-hidden flex items-center justify-center">
+                      <img src={pk.imageUrl} alt="guides" className="w-full h-full object-contain" />
+                    </div>
+                    <p className="p-4 text-sm sm:text-base font-extrabold text-slate-800 bg-slate-50 text-center flex-shrink-0">{pk.title}</p>
                   </div>
                 ))}
               </div>

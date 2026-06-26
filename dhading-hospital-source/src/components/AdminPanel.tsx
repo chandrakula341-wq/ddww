@@ -2243,7 +2243,7 @@ export default function AdminPanel({
                 <Clock className="size-5 text-[#00A64C]" />
                 6-A) Visiting Hour guidelines (Photo lists)
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-2xl">
                 <input
                   type="text"
                   placeholder="Graphic / Title Description"
@@ -2256,6 +2256,21 @@ export default function AdminPanel({
                   placeholder="Visitor Hour Image URL"
                   value={visitorHourForm.imageUrl}
                   onChange={e => setVisitorHourForm(prev => ({ ...prev, imageUrl: e.target.value }))}
+                  className="px-3 py-1 text-xs border border-gray-200 rounded"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (event) => {
+                        setVisitorHourForm(prev => ({ ...prev, imageUrl: event.target?.result as string }));
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
                   className="px-3 py-1 text-xs border border-gray-200 rounded"
                 />
               </div>
@@ -2296,7 +2311,7 @@ export default function AdminPanel({
                 <FileText className="size-5 text-[#00A64C]" />
                 6-B) Visitors Do's and Don'ts checklist
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
                 <input
                   type="text"
                   placeholder="Guideline Title (e.g. ICU hygiene)"
@@ -2309,6 +2324,21 @@ export default function AdminPanel({
                   placeholder="Photo URL"
                   value={visitorDosForm.imageUrl}
                   onChange={e => setVisitorDosForm(prev => ({ ...prev, imageUrl: e.target.value }))}
+                  className="px-3 py-1 text-xs border border-gray-200 rounded"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (event) => {
+                        setVisitorDosForm(prev => ({ ...prev, imageUrl: event.target?.result as string }));
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
                   className="px-3 py-1 text-xs border border-gray-200 rounded"
                 />
                 <input
@@ -2358,7 +2388,7 @@ export default function AdminPanel({
                 <Image className="size-5 text-[#00A64C]" />
                 6-C) Visitors Parking Spaces (Photo Entries)
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-2xl">
                 <input
                   type="text"
                   placeholder="Parking Description"
@@ -2371,6 +2401,21 @@ export default function AdminPanel({
                   placeholder="Photo URL"
                   value={visitorParkForm.imageUrl}
                   onChange={e => setVisitorParkForm(prev => ({ ...prev, imageUrl: e.target.value }))}
+                  className="px-3 py-1 text-xs border border-gray-200 rounded"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (event) => {
+                        setVisitorParkForm(prev => ({ ...prev, imageUrl: event.target?.result as string }));
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
                   className="px-3 py-1 text-xs border border-gray-200 rounded"
                 />
               </div>
